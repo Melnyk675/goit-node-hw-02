@@ -1,21 +1,13 @@
-const Joi = require("joi");
-const { HttpError } = require("../middlewares");
+const { isValidObjectId } = require("mongoose");
+const { HttpError } = require("../helpers");
 
-const addSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  phone: Joi.string().required(),
-});
+const IdValid = (req, res, next) => {
+  const { contactId } = req.params;
 
-const validateAddContact = (req, res, next) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw new HttpError(400, error.message);
+  if (!isValidObjectId(contactId)) {
+    next(HttpError(400, `${contactId} is not valid id`));
   }
   next();
 };
 
-module.exports = {
-  validateAddContact,
-  addSchema
-};
+module.exports = IdValid;
