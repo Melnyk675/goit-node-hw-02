@@ -1,4 +1,5 @@
-const IdValid = require("./validation");
-const handleMongooseError = require("./handleMongooseError");
+const IdValid = require("./IdValid");
+const validateBody = require("./validateBody");
+const authenticate = require("./authenticate");
 
-module.exports = { IdValid, handleMongooseError };
+module.exports = { IdValid, validateBody, authenticate };

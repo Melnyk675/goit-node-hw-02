@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const { handleMongooseError } = require("../middlewares");
 const Joi = require("joi");
 
 const addSchema = Joi.object({
@@ -33,8 +32,6 @@ const contactSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-contactSchema.post("save", handleMongooseError);
+const contact = model("contact", contactSchema);
 
-const contacts = model("contact", contactSchema);
-
-module.exports = { contacts, addSchema, updateFavoriteSchema };
+module.exports = { contact, addSchema, updateFavoriteSchema };
