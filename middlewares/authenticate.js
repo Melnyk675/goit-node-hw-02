@@ -7,7 +7,7 @@ const authenticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
 
-  if (bearer !== "Bearer" && token === undefined) {
+  if (bearer !== "Bearer" || !token) {
     next(HttpError(401, "Not authorized. Not token"));
   }
   try {
